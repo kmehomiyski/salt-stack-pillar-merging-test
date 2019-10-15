@@ -1,0 +1,57 @@
+id: salt-master01.dev01.sf01.onladv.com
+
+file_client: local
+file_roots:
+  base:
+    - /srv/salt
+    - /srv/formulas
+
+pillar_roots:
+  base:
+    - /srv/pillar
+
+verify_env: True
+keysize: 4096
+
+color: True
+cli_summary: True
+state_verbose: False
+# full, terse, mixed (full for failed, terse for others), changes (full for changed, terse for others)
+state_output: full
+state_output_diff: False
+state_aggregate: False
+
+state_events: False
+presence_events: False
+auth_events: False
+
+file_recv: True
+fileserver_events: True
+
+hash_type: sha256
+
+state_top_saltenv: base
+default_top: base
+top_file_merging_strategy: same
+renderer: jinja | yaml | gpg
+failhard: False
+
+job_cache: True
+minion_data_cache: True
+
+fileserver_verify_config: True
+fileserver_backend:
+  - gitfs
+# NOTE: minion file system doesn't work with "salt-call --local"
+#  - minionfs
+  - roots
+
+ext_pillar_first: False
+pillarenv_from_saltenv: False
+pillar_safe_render_error: True
+pillar_source_merging_strategy: smart
+pillar_merge_lists: True
+pillar_includes_override_sls: False
+
+use_superseded:
+  - module.run
